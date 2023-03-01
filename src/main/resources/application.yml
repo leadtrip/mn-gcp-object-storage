@@ -4,13 +4,13 @@ micronaut:
   object-storage:
     gcp:
       default:
-        bucket: mw-object-storage
+        bucket: zebra-object-storage
 netty:
   default:
     allocator:
       max-order: 3
 
 gcp:
-  project-id: 'snappy-way-378809'
+  project-id: 'winged-spotted-zebra'
   credentials:
-    location: ./src/main/resources/my-gcp-creds.json
+    location: ./src/main/resources/sa-testing-pk.json

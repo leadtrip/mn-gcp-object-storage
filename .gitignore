@@ -13,4 +13,4 @@ out/
 .settings
 .classpath
 .factorypath
-/src/main/resources/my-gcp-creds.json
+/src/main/resources/sa-testing-pk.json

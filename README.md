@@ -1,10 +1,40 @@
 ### Micronaut app that exercises GCP object storage functionality
 
-I'm specifying the service account to use in application.yml because I have multiple GCP accounts and the one I want to use for this app is different to the account I have configured with the environment variabLe GOOGLE_APPLICATION_CREDENTIALS.
+You'll need a GCP account.
+
+The commands below will create a project, service account, roles, bucket and test the app.
+
+Assume you're running this from the root of this app so key file ends up in correct place to be referenced by the app.
+
+You may hit a problem with billing not being associated with the account like:
+
+_ERROR: (gcloud.storage.buckets.create) HTTPError 403: The billing account for the owning project is disabled in state absent_
+
+I had to go to the web console Billing section and fix this.
+
+Create the project:
+
+`gcloud projects create winged-spotted-zebra`
+
+Select the project:
+
+`gcloud config set project winged-spotted-zebra`
+
+Create the service account:
+
+`gcloud iam service-accounts create sa-testing --description="Service account for testing purposes" --display-name="sa-testing"`
+
+Add relevant storage role:
+
+`gcloud projects add-iam-policy-binding winged-spotted-zebra --member="serviceAccount:sa-testing@winged-spotted-zebra.iam.gserviceaccount.com" --role="roles/owner"`
+
+Create the service account private key:
+
+`gcloud iam service-accounts keys create ./src/main/resources/sa-testing-pk.json --iam-account="sa-testing@winged-spotted-zebra.iam.gserviceaccount.com"`
 
 Create the bucket:
 
-`gcloud storage buckets create gs://mw-object-storage`
+`gcloud storage buckets create gs://zebra-object-storage`
 
 Upload profile.jpg included with project:
 
@@ -12,7 +42,7 @@ Upload profile.jpg included with project:
 
 Check image was uploaded:
 
-`gcloud storage ls --recursive gs://mw-object-storage`
+`gcloud storage ls --recursive gs://zebra-object-storage`
 
 Download the image:
 
@@ -24,4 +54,4 @@ Delete the image:
 
 Check image has gone from GCP:
 
-`gcloud storage ls --recursive gs://micronaut-guide-object-storage`
+`gcloud storage ls --recursive gs://zebra-object-storage`
