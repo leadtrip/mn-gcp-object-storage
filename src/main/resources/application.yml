@@ -1,0 +1,16 @@
+micronaut:
+  application:
+    name: mnGcpObjectStorage
+  object-storage:
+    gcp:
+      default:
+        bucket: mw-object-storage
+netty:
+  default:
+    allocator:
+      max-order: 3
+
+gcp:
+  project-id: 'snappy-way-378809'
+  credentials:
+    location: ./src/main/resources/my-gcp-creds.json
